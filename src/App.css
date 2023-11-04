@@ -19,12 +19,14 @@ html {
 body {
   min-height: 100vh;
   position: relative;
+  background-color: #686a6e98;
 }
 
 aside {
   display: grid;
   grid-template-columns: 1fr;
   min-width: 700px;
+  max-height: 842px;
   overflow-y: scroll;
 }
 

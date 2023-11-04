@@ -317,7 +317,6 @@ function AboutComponent({ setCoverLetter }) {
 
   function handleCoverLetter() {
     if (!letter) return;
-    console.log("hello");
     setCoverLetter(letter);
     setLetter("");
   }
@@ -359,6 +358,7 @@ function ReferenceComponent({ setReferenceArray }) {
   }
   return (
     <div>
+      <h1>Reference</h1>
       <div className="form-floating">
         <input
           type="text"
