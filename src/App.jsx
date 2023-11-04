@@ -11,6 +11,11 @@ export default function App() {
   const [expertiseArray, setExpertiseArray] = useState([]);
   const [language, setLanguage] = useState("");
   const [languagesArray, setLanguagesArray] = useState([]);
+  const [coverLetter, setCoverLetter] = useState("");
+  const [referenceArray, setReferenceArray] = useState([]);
+  const [image, setImage] = useState(
+    "https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&q=80&w=1888&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  );
   return (
     <main className="container">
       <aside>
@@ -36,6 +41,11 @@ export default function App() {
           setLanguage={setLanguage}
           setLanguagesArray={setLanguagesArray}
         ></LanguageComponent>
+        <AboutComponent setCoverLetter={setCoverLetter}></AboutComponent>
+        <ReferenceComponent
+          setReferenceArray={setReferenceArray}
+        ></ReferenceComponent>
+        <ImageComponent image={image} setImage={setImage}></ImageComponent>
       </aside>
       <ResultComponent
         educations={educations}
@@ -45,6 +55,9 @@ export default function App() {
         address={address}
         expertiseArray={expertiseArray}
         languagesArray={languagesArray}
+        coverLetter={coverLetter}
+        referenceArray={referenceArray}
+        image={image}
       ></ResultComponent>
     </main>
   );
@@ -77,20 +90,6 @@ function ContactComponent({
         ></input>
         <label htmlFor="floatingInput-name">Full name</label>
       </div>
-      {/* Email */}
-      <div className="form-floating">
-        <input
-          type="email"
-          className="form-control"
-          id="floatingEmail"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        ></input>
-        <label htmlFor="floatingEmail">Email</label>
-      </div>
       {/* Phonenumber */}
       <div className="form-floating">
         <input
@@ -104,6 +103,20 @@ function ContactComponent({
           }}
         ></input>
         <label htmlFor="floatingPhone">Phone number</label>
+      </div>
+      {/* Email */}
+      <div className="form-floating">
+        <input
+          type="email"
+          className="form-control"
+          id="floatingEmail"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        ></input>
+        <label htmlFor="floatingEmail">Email</label>
       </div>
       {/* Address */}
       <div className="form-floating">
@@ -145,18 +158,13 @@ function EducationComponent({ setEducations }) {
 
 function Education({ setEducations }) {
   const [educationHeading, setEducationheading] = useState("");
-  const [educationInfo, setEducationInfo] = useState("");
 
   function addEducation() {
     if (!educationHeading) return;
 
-    setEducations((curr) => [
-      ...curr,
-      { educationHeading: educationHeading, educationInfo: educationInfo },
-    ]);
+    setEducations((curr) => [...curr, { educationHeading: educationHeading }]);
 
     setEducationheading("");
-    setEducationInfo("");
   }
 
   return (
@@ -165,29 +173,13 @@ function Education({ setEducations }) {
         type="text"
         className="form-control"
         id="floatingEducation"
-        placeholder="Ex: 2023 - 2025 Computer Science-Bachelor, Havard"
+        placeholder="Education"
         value={educationHeading}
         onChange={(e) => {
           setEducationheading(e.target.value);
         }}
       ></input>
-      <label htmlFor="floatingEducation">
-        Ex: 2023 - 2025 Computer Science-Bachelor, Havard
-      </label>
-      <div className="mb-3">
-        <label htmlFor="exampleFormControlTextarea1" className="form-label">
-          About
-        </label>
-        <textarea
-          className="form-control"
-          id="exampleFormControlTextarea1"
-          rows="5"
-          value={educationInfo}
-          onChange={(e) => {
-            setEducationInfo(e.target.value);
-          }}
-        ></textarea>
-      </div>
+      <label htmlFor="floatingEducation">Education</label>
 
       <button
         type="button"
@@ -262,6 +254,7 @@ function Expertise({ setExpertiseArray }) {
           className="form-control"
           id="exampleFormControlTextarea2"
           rows="5"
+          maxLength="300"
           value={expertiseInfo}
           onChange={(e) => {
             setExpertiseInfo(e.target.value);
@@ -319,6 +312,119 @@ function LanguageComponent({ language, setLanguage, setLanguagesArray }) {
   );
 }
 
+function AboutComponent({ setCoverLetter }) {
+  const [letter, setLetter] = useState("");
+
+  function handleCoverLetter() {
+    if (!letter) return;
+    console.log("hello");
+    setCoverLetter(letter);
+    setLetter("");
+  }
+  return (
+    <div>
+      <div className="mb-3">
+        <h1>Cover letter</h1>
+        <textarea
+          className="form-control"
+          id="exampleFormControlTextarea3"
+          rows="5"
+          maxLength="300"
+          value={letter}
+          onChange={(e) => {
+            return setLetter(e.target.value);
+          }}
+        ></textarea>
+      </div>
+
+      <button
+        type="button"
+        className="btn btn-outline-success"
+        onClick={handleCoverLetter}
+      >
+        Add
+      </button>
+    </div>
+  );
+}
+
+function ReferenceComponent({ setReferenceArray }) {
+  const [reference, setReference] = useState("");
+
+  function handleRef() {
+    if (!reference) return;
+
+    setReferenceArray((ref) => [...ref, reference]);
+    setReference("");
+  }
+  return (
+    <div>
+      <div className="form-floating">
+        <input
+          type="text"
+          className="form-control"
+          id="floatingReference"
+          placeholder="Reference"
+          value={reference}
+          onChange={(e) => setReference(e.target.value)}
+        ></input>
+        <label htmlFor="floatingReference">Reference</label>
+      </div>
+      <button
+        type="button"
+        className="btn btn-outline-success"
+        onClick={handleRef}
+      >
+        Add
+      </button>
+    </div>
+  );
+}
+
+function ImageComponent({ image, setImage }) {
+  const [imageUrl, setImageUrl] = useState("");
+
+  async function handleImage(url) {
+    if (!url) return;
+    const res = await fetch(url);
+
+    if (res.status !== 200) {
+      alert("Failed to fetch image. Check the URL and try again.");
+      return;
+    }
+
+    setImage(res.url);
+    setImageUrl("");
+  }
+
+  return (
+    <div>
+      <h1>Image URL</h1>
+      {/* Name */}
+      <div className="form-floating mb-3">
+        <input
+          type="text"
+          className="form-control"
+          id="floatingInput-image"
+          placeholder="Image URL"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        ></input>
+        <label htmlFor="floatingInput-image">Image URL</label>
+      </div>
+      <button
+        type="button"
+        className="btn btn-outline-success"
+        onClick={() => {
+          handleImage(imageUrl);
+        }}
+      >
+        Set
+      </button>
+    </div>
+  );
+}
+
 function ResultComponent({
   educations,
   name,
@@ -327,16 +433,16 @@ function ResultComponent({
   address,
   expertiseArray,
   languagesArray,
+  coverLetter,
+  referenceArray,
+  image,
 }) {
   return (
     <div className="main-result-container">
       {/* ASIDE-RESULT*/}
       <div className="aside-result-container">
         <div className="img">
-          <img
-            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&q=80&w=1888&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Profile"
-          ></img>
+          <img src={image} alt="Profile"></img>
         </div>
         <div>
           <h3>Contact</h3>
@@ -389,7 +495,7 @@ function ResultComponent({
       <div className="result-container">
         <div className="result-head-box">
           <h1>{name}</h1>
-          <p>Some text about the person</p>
+          <p>{coverLetter}</p>
         </div>
         <div className="result-expertise-box">
           <h2>Expertise</h2>
@@ -408,7 +514,11 @@ function ResultComponent({
         </div>
         <div className="reference-box">
           <h2>Reference</h2>
-          <ul>{/* TDOD */}</ul>
+          <div className="reference-div">
+            {referenceArray.map((ref) => {
+              return <div key={ref}>{ref}</div>;
+            })}
+          </div>
         </div>
       </div>
     </div>

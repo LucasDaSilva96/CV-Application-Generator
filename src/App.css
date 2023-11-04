@@ -18,6 +18,14 @@ html {
 
 body {
   min-height: 100vh;
+  position: relative;
+}
+
+aside {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-width: 700px;
+  overflow-y: scroll;
 }
 
 h3 {
@@ -36,9 +44,8 @@ h3 {
   grid-template-columns: 1fr 1fr;
 }
 
-.result-container {
-  display: flex;
-  flex-direction: column;
+.result-head-box {
+  padding: 0 10px;
 }
 
 .result-head-box h1 {
@@ -71,12 +78,14 @@ h3 {
 .result-container {
   padding-top: 10px;
   display: grid;
-  grid-template-rows: 1fr 5fr 1fr;
+  grid-template-rows: 155.5px 1fr 100px;
 }
 
 .expertise-result-ul {
   list-style: none;
   padding-right: 10px;
+  max-width: 410.6px;
+  overflow: hidden;
 }
 
 .expertise-result-ul li h3 {
@@ -97,11 +106,13 @@ h3 {
   align-items: center;
   gap: 10px;
   max-width: 595px;
+  position: relative;
 }
 
-.aside-result-container h3 {
+.aside-result-container div h3 {
   border-bottom: 1.5px solid #ebebeb;
   font-size: 1.3rem;
+  width: 190px;
 }
 
 .aside-result-container ul li {
@@ -119,16 +130,32 @@ h3 {
   overflow: hidden;
 }
 
-.result-expertise-box ul {
+/* .result-expertise-box ul {
   margin-left: -15px;
-}
+} */
 
-.result-expertise-box li h3 {
+/* .result-expertise-box li h3 {
   margin-left: -15px;
-}
+} */
 
 .reference-box h2 {
   border-bottom: 2px solid #323b4c;
   font-size: 1.5rem;
   text-align: center;
+}
+
+.reference-box {
+  max-width: 400px;
+  overflow: hidden;
+}
+
+.reference-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.reference-div div {
+  font-size: 0.8rem;
 }
